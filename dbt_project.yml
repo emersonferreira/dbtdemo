@@ -30,8 +30,10 @@ models:
     docs_background_color: white
     staging:
       +materialized: view
+      +schema: staging
     marts:
       +materialized: table
+      +schema: marts
       +required_docs: true
       +required_tests: {"unique.*|not_null|relationships.*": 2}
 
