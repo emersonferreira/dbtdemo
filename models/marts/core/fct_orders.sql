@@ -1,3 +1,10 @@
+{{
+    config(
+        tags = ['contains_pii','hr'],
+        labels = {'pii_data': 'true', 'human_resource_data': ''}
+    )
+}}
+
 with
     orders as (select * from {{ ref("stg_orders") }}),
 
