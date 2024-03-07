@@ -24,14 +24,17 @@ require-dbt-version: [">=1.0.0", "<2.0.0"]
 models:
   jaffle_shop:
     +persist_docs: 
-      relation: true
+      relation: false
       columns: true
     materialized: table
     docs_background_color: white
+
     staging:
       +materialized: view
+      +schema: staging
     marts:
       +materialized: table
+      +schema: "{% if target.name == 'clone' %}clone{% else %}{{ target.schema }}{% endif %}"
       +required_docs: true
       +required_tests: {"unique.*|not_null|relationships.*": 2}
 
@@ -59,6 +62,6 @@ seeds:
 vars:
   dbt_project_evaluator:
     documentation_coverage_target: 75
-    test_coverage_target: 75
+    test_coverage_target: 80
 
 on-run-end: "{{ dbt_project_evaluator.print_dbt_project_evaluator_issues(format='csv') }}"
