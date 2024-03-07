@@ -61,7 +61,7 @@ seeds:
 
 vars:
   dbt_project_evaluator:
-    documentation_coverage_target: 75
+    documentation_coverage_target: 80
     test_coverage_target: 80
 
 on-run-end: "{{ dbt_project_evaluator.print_dbt_project_evaluator_issues(format='csv') }}"
