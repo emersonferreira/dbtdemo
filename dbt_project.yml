@@ -42,7 +42,6 @@ models:
       +labels: {'visible_to_users': 'false'}
       +materialized: table
       +schema: clone
-      +enabled: "{{ env_var('DBT_BUILD_CLONE', 'False') | as_bool }}"
 
 tests:
   +store_failures: true
