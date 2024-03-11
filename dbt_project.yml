@@ -34,9 +34,15 @@ models:
       +schema: staging
     marts:
       +materialized: table
-      +schema: "{% if target.name == 'clone' %}clone{% else %}{{ target.schema }}{% endif %}"
+      +schema: marts
       +required_docs: true
       +required_tests: {"unique.*|not_null|relationships.*": 2}
+    clone:
+      +tags: ['clone_schema']
+      +labels: {'visible_to_users': 'false'}
+      +materialized: table
+      +schema: clone
+      +enabled: "{{ env_var('DBT_BUILD_CLONE', 'False') | as_bool }}"
 
 tests:
   +store_failures: true

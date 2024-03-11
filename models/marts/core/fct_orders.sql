@@ -32,4 +32,4 @@ with
 
 select *
 from final
-where extract(month from order_date) <= 4
+where extract(month from order_date) <= 2
