@@ -57,7 +57,7 @@ tests:
       +enabled: false
     assert_fct_orders_compare_all_columns:
       +severity: error
-      +enabled: false
+      +enabled: true
       
 
 seeds:
