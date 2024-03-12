@@ -7,7 +7,7 @@ dbt-cloud:
 
 profile: "jaffle_shop"
 
-model-paths: ["models"]
+model-paths: ["models", "docs"]
 seed-paths: ["seeds"]
 test-paths: ["tests"]
 analysis-paths: ["analysis"]
