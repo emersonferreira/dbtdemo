@@ -7,7 +7,7 @@ dbt-cloud:
 
 profile: "jaffle_shop"
 
-model-paths: ["models"]
+model-paths: ["models", "docs"]
 seed-paths: ["seeds"]
 test-paths: ["tests"]
 analysis-paths: ["analysis"]
@@ -34,24 +34,29 @@ models:
       +schema: staging
     marts:
       +materialized: table
-      +schema: "{% if target.name == 'clone' %}clone{% else %}{{ target.schema }}{% endif %}"
+      +schema: marts
       +required_docs: true
       +required_tests: {"unique.*|not_null|relationships.*": 2}
+    clone:
+      +tags: ['clone_schema']
+      +labels: {'visible_to_users': 'false'}
+      +materialized: table
+      +schema: clone
 
 tests:
   +store_failures: true
   dbt_project_evaluator:
     +severity: "{{ env_var('DBT_PROJECT_EVALUATOR_SEVERITY', 'warn') }}"
   jaffle_shop:
-    assert_fct_orders_compare_all_columns_with_baseline:
-      +enabled: true
-      +severity: warn
     assert_stg_customer_compare_all_columns:
       +severity: warn
       +enabled: false
     assert_fct_orders_compare_all_columns_with_baseline:
       +severity: error
       +enabled: false
+    assert_fct_orders_compare_all_columns:
+      +severity: error
+      +enabled: true
       
 
 seeds:
@@ -61,7 +66,7 @@ seeds:
 
 vars:
   dbt_project_evaluator:
-    documentation_coverage_target: 75
+    documentation_coverage_target: 80
     test_coverage_target: 80
 
 on-run-end: "{{ dbt_project_evaluator.print_dbt_project_evaluator_issues(format='csv') }}"
