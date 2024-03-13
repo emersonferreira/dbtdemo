@@ -2,7 +2,13 @@ version: 2
 
 models:
   - name: dim_customers
-    description: Customers dimension to descrribe events in fct_orders
+    description: |
+      Customers dimension to descrribe events in fct_orders
+
+      'dbt-profiler' results:
+      {% if execute %}
+      {{ dbt_profiler.get_profile(relation=ref("dim_customers"), where_clause="is_active = true") }}
+      {% endif %}
     config:
       contract:
         enforced: true
