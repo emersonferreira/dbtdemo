@@ -1,8 +1,8 @@
 with
-    base_fct_orders as (
+    base_dim_customers as (
         {{
             audit_helper.compare_all_columns(
-                a_relation=ref("dim_customers"),
+                a_relation=ref('dim_customers'),
                 b_relation=api.Relation.create(
                     database=env_var('DBT_DB'), schema=env_var('DBT_CLONE_SCHEMA', 'dev_clone'), identifier="clone_dim_customers"
                 ),
@@ -14,4 +14,4 @@ with
     )
 
 select *
-from base_fct_orders
+from base_dim_customers

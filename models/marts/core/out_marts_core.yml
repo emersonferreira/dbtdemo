@@ -41,6 +41,15 @@ models:
     config:
       contract:
         enforced: true
+    tests:
+      - compare_all_columns_values:
+          b_relation: ref("ephemeral_clone_fct_orders")
+          exclude_columns: ["updated_at","audit_run_id", "run_started_est"]
+          primary_key: "order_id"
+          config:
+            severity: error
+            error_if: ">1"
+            warn_if: ">0"
     columns:
       - name: customer_id
         description: Customer Foreign Key
@@ -52,6 +61,10 @@ models:
               to: ref('dim_customers')
       - name: amount
         description: Amount of value
+        tests:
+          - expect_amount_in_between:
+              min_value: 0
+              max_value: 2000
         data_type: FLOAT64
       - name: order_date
         description: Order Date
