@@ -49,8 +49,6 @@ models:
           primary_key: "order_id"
           config:
             severity: error
-            error_if: ">1"
-            warn_if: ">0"
             enabled: true
     columns:
       - name: customer_id
