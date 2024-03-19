@@ -44,7 +44,7 @@ models:
     tests:
       - compare_all_columns_values:
           name: compare_fct_orders_with_clone_fct_orders
-          b_relation: ref("clone_fct_orders")
+          b_relation: ref('clone_fct_orders')
           exclude_columns: ["updated_at","audit_run_id", "run_started_est"]
           primary_key: "order_id"
           config:

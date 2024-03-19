@@ -37,6 +37,7 @@ models:
       +schema: marts
       +required_docs: true
       +required_tests: {"unique.*|not_null|relationships.*": 2}
+      +tags: ['clone_test_active']
     clone:
       +tags: ['clone_schema']
       +labels: {'visible_to_users': 'false'}
