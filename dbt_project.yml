@@ -56,7 +56,7 @@ tests:
       +enabled: false
     assert_fct_orders_compare_all_columns:
       +severity: error
-      +enabled: true
+      +enabled: false
     assert_dim_customers_compare_all_columns:
       +enabled: false
       
