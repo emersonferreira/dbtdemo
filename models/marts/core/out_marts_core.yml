@@ -51,7 +51,7 @@ models:
             severity: error
             error_if: ">1"
             warn_if: ">0"
-            enabled: false
+            enabled: true
     columns:
       - name: customer_id
         description: Customer Foreign Key
