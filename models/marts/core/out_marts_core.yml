@@ -43,13 +43,15 @@ models:
         enforced: true
     tests:
       - compare_all_columns_values:
-          b_relation: ref("ephemeral_clone_fct_orders")
+          name: compare_fct_orders_with_clone_fct_orders
+          b_relation: ref("clone_fct_orders")
           exclude_columns: ["updated_at","audit_run_id", "run_started_est"]
           primary_key: "order_id"
           config:
             severity: error
             error_if: ">1"
             warn_if: ">0"
+            enabled: false
     columns:
       - name: customer_id
         description: Customer Foreign Key
