@@ -6,6 +6,15 @@ models:
     config:
       contract:
         enforced: true
+    tests:
+      - compare_all_columns_values:
+          name: compare_dim_customers_with_clone_dim_customers
+          b_relation: ref('clone_dim_customers')
+          exclude_columns: ["updated_at","audit_run_id", "run_started_est"]
+          primary_key: "customer_id"
+          config:
+            severity: error
+            enabled: true
     meta:
       owner: Emerson Ferreira
     columns:
