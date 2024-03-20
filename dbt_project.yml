@@ -37,6 +37,7 @@ models:
       +schema: marts
       +required_docs: true
       +required_tests: {"unique.*|not_null|relationships.*": 2}
+      +tags: ['clone_test_active']
     clone:
       +tags: ['clone_schema']
       +labels: {'visible_to_users': 'false'}
@@ -56,7 +57,9 @@ tests:
       +enabled: false
     assert_fct_orders_compare_all_columns:
       +severity: error
-      +enabled: true
+      +enabled: false
+    assert_dim_customers_compare_all_columns:
+      +enabled: false
       
 
 seeds:

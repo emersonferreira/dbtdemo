@@ -2,16 +2,19 @@ version: 2
 
 models:
   - name: dim_customers
-    description: |
-      Customers dimension to descrribe events in fct_orders
-
-      'dbt-profiler' results:
-      {% if execute %}
-      {{ dbt_profiler.get_profile(relation=ref("dim_customers"), where_clause="is_active = true") }}
-      {% endif %}
+    description: Customers dimension to descrribe events in fct_orders
     config:
       contract:
         enforced: true
+    tests:
+      - compare_all_columns_values:
+          name: compare_dim_customers_with_clone_dim_customers
+          b_relation: ref('clone_dim_customers')
+          exclude_columns: ["updated_at","audit_run_id", "run_started_est"]
+          primary_key: "customer_id"
+          config:
+            severity: error
+            enabled: true
     meta:
       owner: Emerson Ferreira
     columns:
@@ -47,6 +50,15 @@ models:
     config:
       contract:
         enforced: true
+    tests:
+      - compare_all_columns_values:
+          name: compare_fct_orders_with_clone_fct_orders
+          b_relation: ref('clone_fct_orders')
+          exclude_columns: ["updated_at","audit_run_id", "run_started_est"]
+          primary_key: "order_id"
+          config:
+            severity: error
+            enabled: true
     columns:
       - name: customer_id
         description: Customer Foreign Key
@@ -58,6 +70,10 @@ models:
               to: ref('dim_customers')
       - name: amount
         description: Amount of value
+        tests:
+          - expect_amount_in_between:
+              min_value: 0
+              max_value: 2000
         data_type: FLOAT64
       - name: order_date
         description: Order Date
