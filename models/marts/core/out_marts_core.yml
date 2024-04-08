@@ -3,6 +3,7 @@ version: 2
 models:
   - name: dim_customers
     description: Customers dimension to descrribe events in fct_orders
+    deprecation_date: 2024-04-01
     config:
       contract:
         enforced: true
@@ -98,3 +99,6 @@ models:
       - name: updated_at
         description: Date when the record was updated.
         data_type: datetime
+      - name: notes_number
+        description: Notes
+        data_type: INTEGER
