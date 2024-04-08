@@ -6,6 +6,12 @@ models:
     config:
       contract:
         enforced: true
+      refter:
+        deprecated:
+          enable: true
+          reason: "Just a test."
+          date: 2024-04-07
+
     tests:
       - compare_all_columns_values:
           name: compare_dim_customers_with_clone_dim_customers
@@ -14,7 +20,7 @@ models:
           primary_key: "customer_id"
           config:
             severity: error
-            enabled: true
+            enabled: false
     meta:
       owner: Emerson Ferreira
     columns:
@@ -84,6 +90,11 @@ models:
         tests:
           - not_null
           - unique
+        refter:
+          deprecated:
+            enable: true
+            reason: "Just a test to deprecate a column."
+            date: "2024-04-01"
       - name: updated_at
         description: Date when the record was updated.
         data_type: datetime

@@ -1,7 +1,13 @@
 {{
     config(
         tags = ['contains_pii','hr'],
-        labels = {'pii_data': 'true', 'human_resource_data': ''}
+        labels = {'pii_data': 'true', 'human_resource_data': ''},
+        partition_by={
+            "field": "order_date",
+            "data_type": "date",
+            "granularity": "day"
+        },
+        partition_expiration_days = 1825
     )
 }}
 
