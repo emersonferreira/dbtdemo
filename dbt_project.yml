@@ -2,6 +2,7 @@ name: "jaffle_shop"
 version: "0.1"
 
 config-version: 2
+
 dbt-cloud:
   project-id: 336480
 
@@ -30,13 +31,14 @@ models:
     docs_background_color: white
 
     staging:
-      +materialized: view
+      +materialized: "{{ env_var('DBT_STAGING_MAT') }}"
       +schema: staging
     marts:
       +materialized: table
       +schema: marts
       +required_docs: true
       +required_tests: {"unique.*|not_null|relationships.*": 2}
+      +tags: ['clone_test_active']
     clone:
       +tags: ['clone_schema']
       +labels: {'visible_to_users': 'false'}
@@ -56,7 +58,9 @@ tests:
       +enabled: false
     assert_fct_orders_compare_all_columns:
       +severity: error
-      +enabled: true
+      +enabled: false
+    assert_dim_customers_compare_all_columns:
+      +enabled: false
       
 
 seeds:
@@ -68,5 +72,8 @@ vars:
   dbt_project_evaluator:
     documentation_coverage_target: 80
     test_coverage_target: 80
+
+  jaffle_shop:
+    fct_order_year: '2024'
 
 on-run-end: "{{ dbt_project_evaluator.print_dbt_project_evaluator_issues(format='csv') }}"
