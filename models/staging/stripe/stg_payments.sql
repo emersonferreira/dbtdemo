@@ -1,3 +1,9 @@
+{{
+    config(
+        materialized=env_var('DBT_STAGING_MAT')
+    )
+}}
+
 select
     payments.id as payment_id,
     payments.order_id as order_id,

@@ -31,7 +31,7 @@ models:
     docs_background_color: white
 
     staging:
-      +materialized: view
+      +materialized: "{{ env_var('DBT_STAGING_MAT') }}"
       +schema: staging
     marts:
       +materialized: table

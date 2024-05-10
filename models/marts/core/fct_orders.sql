@@ -39,4 +39,4 @@ with
 
 select *
 from final
---where extract(month from order_date) <= 3
+where extract(month from order_date) <= 2
