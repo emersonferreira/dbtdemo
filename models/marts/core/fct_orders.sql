@@ -1,7 +1,13 @@
 {{
     config(
         tags = ['contains_pii','hr'],
-        labels = {'pii_data': 'true', 'human_resource_data': ''}
+        labels = {'pii_data': 'true', 'human_resource_data': ''},
+        partition_by={
+            "field": "order_date",
+            "data_type": "date",
+            "granularity": "day"
+        },
+        partition_expiration_days = 6825
     )
 }}
 
@@ -24,7 +30,8 @@ with
             orders.customer_id,
             orders.order_date,
             coalesce(order_payments.amount, 0) + 5 as amount,
-            CURRENT_DATETIME() as updated_at
+            CURRENT_DATETIME() as updated_at,
+            10 as notes_number
 
         from orders
         left join order_payments on orders.order_id = order_payments.order_id
