@@ -1,7 +1,7 @@
 {{
     config(
         materialized='table',
-        tags=['clone_model']
+        tags=['clone_model', 'fact_table']
     )
 }}
 
