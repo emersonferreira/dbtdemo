@@ -1,0 +1,33 @@
+version: 2
+
+macros:
+    - name: assert_vera_historical_numeric
+      description: >
+        This SQL-based test validates the historical numeric data in a specified model
+        by comparing the distinct count of a column over specified time intervals.
+        It uses the LAG function to access the previous row's count and checks if the
+        difference between consecutive intervals exceeds a specified absolute value.
+        The test can partition the data by different time fractions (month, week, day, year)
+        and optionally remove a certain number of outliers based on the rank of the differences.
+      arguments:
+        - name: date_column
+          type: string
+          description: The name of the date column in the model that will be used to determine the time intervals. This column should contain date values that can be formatted and used for partitioning.
+        - name: distinct_column
+          type: string
+          description: The name of the column whose distinct values will be counted in each time interval. This is the primary column for which the test is measuring changes in the number of distinct values over time.
+        - name: interval
+          type: integer
+          description: The number of past intervals to include in the test. For example, if the time_fraction is set to 'MONTH' and interval is 6, the test will look at the last 6 months of data.
+        - name: abs_value
+          type: integer
+          description: The threshold value for the absolute difference in distinct counts between consecutive intervals. If the difference exceeds this value, the test will flag the interval as a failure.
+        - name: time_fraction
+          type: string
+          description: >
+            The granularity of the time intervals for partitioning the data. Accepted values are
+            'MONTH', 'WEEK', 'DAY', and 'YEAR'. This determines how the date values in date_column
+            are formatted and grouped.
+        - name: remove_n_outliers
+          type: integer
+          description: The number of top-ranked outliers (based on the absolute difference in distinct counts) to remove from the final validation step. This helps to exclude extreme differences that might skew the test results.

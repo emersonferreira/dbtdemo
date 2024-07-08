@@ -66,6 +66,14 @@ models:
           config:
             severity: error
             enabled: true
+      - assert_vera_historical_numeric:
+          name: assert_vera_historical_numeric_10_outlier_2
+          date_column: order_date
+          distinct_column: order_id
+          interval: 10
+          abs_value: 300
+          time_fraction: WEEK
+          remove_n_outliers: 2
     columns:
       - name: customer_id
         description: Customer Foreign Key

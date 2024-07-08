@@ -1,9 +1,4 @@
-{{
-    config(
-        materialized='table',
-        tags=['clone_model']
-    )
-}}
+{{ config(materialized="table", tags=["clone_model"]) }}
 
 select 
     *,
