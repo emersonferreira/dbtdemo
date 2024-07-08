@@ -3,7 +3,7 @@ version: 2
 macros:
   - name: test_assert_vera_lessthan
     description: >
-      This SQL-based test validates historical numeric data in a specified model by comparing
+      ECF - This SQL-based test validates historical numeric data in a specified model by comparing
       the distinct count of a column over two specified time intervals to ensure the difference
       between them does not exceed certain values. It compares the row counts from the model
       and a comparison table, optionally considering the comparison table as a snapshot,
