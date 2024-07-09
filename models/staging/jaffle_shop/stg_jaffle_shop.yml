@@ -24,3 +24,39 @@ models:
           - relationships:
               field: customer_id
               to: ref('stg_customers')
+
+  - name: stg_sentencing_data
+    description: Data for test the Vera checks
+    tests:
+      - assert_vera_lessthan:
+          name: assert_vera_lessthan_10_and_9
+          compare_to_table: ref("snap_bdm_sentencing")
+          date_column: created_date
+          distinct_column: sentencing_id
+          first_interval: 6
+          max_interval: 12
+          first_interval_value: 10
+          second_interval_value: 5
+          time_fraction: WEEK
+          compare_table_is_snapshot: TRUE
+
+      - assert_vera_percentage:
+          name: assert_vera_percentage_between_10_and_9
+          compare_to_table: ref("snap_bdm_sentencing")
+          date_column: created_date
+          distinct_column: sentencing_id
+          first_interval: 6
+          max_interval: 12
+          first_interval_value: 10
+          second_interval_value: 5
+          time_fraction: WEEK
+          compare_table_is_snapshot: TRUE
+          
+      - assert_vera_historical_numeric:
+          name: assert_vera_historical_numeric_10_outlier_2
+          date_column: created_date
+          distinct_column: sentencing_id
+          interval: 10
+          abs_value: 300
+          time_fraction: WEEK
+          remove_n_outliers: 2
