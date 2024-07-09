@@ -110,3 +110,8 @@ models:
       - name: notes_number
         description: Notes
         data_type: INTEGER
+
+  - name: eph_remove_top_10
+    description: Ephemeral model for rank fct orders
+    docs:
+      show: false
