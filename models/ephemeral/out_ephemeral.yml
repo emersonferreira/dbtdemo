@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: eph_remove_top_10
+    description: Ephemeral model for rank fct orders
+    docs:
+      show: false
