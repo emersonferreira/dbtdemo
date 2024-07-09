@@ -45,6 +45,26 @@ models:
       +materialized: table
       +schema: clone
 
+  dbt_project_evaluator:
+    +docs:
+      show: false
+
+  dbt_profiler:
+    +docs:
+      show: false
+
+  audit_helper:
+    +docs:
+      show: false
+
+  dbt_meta_testing:
+    +docs:
+      show: false
+
+  dbt_utils:
+    +docs:
+      show: false
+
 tests:
   +store_failures: true
   dbt_project_evaluator:
